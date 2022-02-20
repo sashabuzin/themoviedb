@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/toolbar_margin"
+    android:id="@+id/toolbar_main"
+    android:background="@color/grey"
+
+    >
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/toolbar_movie_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/movie_toolbar_btn"
+        android:background="@color/marrs_green"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/toolbar_people_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/people_toolbar_btn"
+        android:background="@color/marrs_green"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:alpha="0.89"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/toolbar_favorite_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/favorite_toolbar_btn"
+        android:background="@color/marrs_green"
+        android:alpha="0.89"/>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
