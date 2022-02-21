@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container_main, MainFragment.newInstance())
+                .replace(R.id.container_main, FilmDetailsFragment.newInstance())
                 .commit()
         }
 
