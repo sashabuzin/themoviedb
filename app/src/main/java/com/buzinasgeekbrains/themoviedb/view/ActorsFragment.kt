@@ -1,4 +1,4 @@
-package com.buzinasgeekbrains.themoviedb
+package com.buzinasgeekbrains.themoviedb.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,40 +6,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.buzinasgeekbrains.themoviedb.Repositories.AppState
-import com.buzinasgeekbrains.themoviedb.ViewModels.MainViewModel
+import androidx.lifecycle.Observer
+import com.buzinasgeekbrains.themoviedb.R
+import com.buzinasgeekbrains.themoviedb.databinding.ActorsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
+import com.buzinasgeekbrains.themoviedb.viewmodel.ActorsViewModel
+import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 
-class MainFragment : Fragment() {
+class ActorsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = ActorsFragment()
     }
 
-    private var _binding: MainFragmentBinding? = null
-
+    private var _binding: ActorsFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: ActorsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = ActorsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-//        parentFragmentManager.beginTransaction().replace(R.id.container_main)
-//        render(state)
+        viewModel = ViewModelProvider(this).get(ActorsViewModel::class.java)
+        viewModel.getData().observe(viewLifecycleOwner, Observer {
+            render(it)
+        })
     }
 
     private fun render(state: Any) {
         when (state) {
-            is AppState.Success -> {
+            is AppState.Success<*> -> {
                 //TODO gone loading
             }
             is AppState.Error -> {
