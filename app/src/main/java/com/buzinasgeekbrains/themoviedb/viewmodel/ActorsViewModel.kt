@@ -25,8 +25,8 @@ class ActorsViewModel: ViewModel() {
 
         Thread {
             Thread.sleep(1000)
-            val film = repository.getActorFromLocalStorage()
-            liveDataToObserve.postValue(AppState.Success(film[0]))
+            val actor = repository.getActorFromLocalStorage()
+            liveDataToObserve.postValue(AppState.Success(actor.firstOrNull()))
 
         }.start()
     }

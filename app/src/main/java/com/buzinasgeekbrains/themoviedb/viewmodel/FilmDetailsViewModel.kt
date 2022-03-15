@@ -25,7 +25,7 @@ class FilmDetailsViewModel : ViewModel() {
         Thread {
             Thread.sleep(1000)
             val film = repository.getFilmFromServer()
-            liveDataToObserve.postValue(AppState.Success(film[0]))
+            liveDataToObserve.postValue(AppState.Success(film.firstOrNull()))
 
         }.start()
     }
