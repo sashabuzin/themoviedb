@@ -1,4 +1,4 @@
-package com.buzinasgeekbrains.themoviedb
+package com.buzinasgeekbrains.themoviedb.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.buzinasgeekbrains.themoviedb.Repositories.AppState
-import com.buzinasgeekbrains.themoviedb.Repositories.Film
-import com.buzinasgeekbrains.themoviedb.ViewModels.FilmDetailsViewModel
+import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
+import com.buzinasgeekbrains.themoviedb.viewmodel.FilmDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.FilmDetailsFragmentBinding
-import java.text.DateFormat
-import java.util.*
+import com.buzinasgeekbrains.themoviedb.model.Film
 
 class FilmDetailsFragment : Fragment() {
 
@@ -40,26 +38,27 @@ class FilmDetailsFragment : Fragment() {
         viewModel.getData().observe(viewLifecycleOwner, Observer {
             render(it)
         })
-        viewModel.getFilm()
+        viewModel.getFilmFromLocalStorage()
 
 
     }
 
     private fun render(state: AppState) {
         when (state) {
-            is AppState.Success -> {
+            is AppState.Success<*> -> {
 
+                val film = state.data as Film
                 binding.progressBarcv.visibility = View.GONE
-                binding.filmNameMain.text = state.film.name
-                binding.ratingList.append(state.film.rating.toString())
-                binding.budgetList.append(state.film.budget.toString())
-                binding.revenueList.append(state.film.revenue.toString())
-                binding.releaseDateList.append(state.film.date.toString())
-                binding.filmDescription.text = state.film.description
+                binding.filmNameMain.text = film.name
+                binding.ratingList.append(film.rating.toString())
+                binding.budgetList.append(film.budget.toString())
+                binding.revenueList.append(film.revenue.toString())
+                binding.releaseDateList.append(film.date.toString())
+                binding.filmDescription.text = film.description
 
             }
             is AppState.Error -> {
-                viewModel.getFilm()
+                viewModel.getFilmFromLocalStorage()
             }
             is AppState.Loading -> {
                 binding.progressBarcv.visibility = View.VISIBLE

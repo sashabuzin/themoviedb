@@ -3,4 +3,5 @@
     <string name="movie_toolbar_btn">Movie</string>
     <string name="people_toolbar_btn">People</string>
     <string name="favorite_toolbar_btn">Favorite</string>
+    <string name="main_toolbar_btn">Main</string>
 </resources>

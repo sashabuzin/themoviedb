@@ -1,4 +1,4 @@
-package com.buzinasgeekbrains.themoviedb.Repositories
+package com.buzinasgeekbrains.themoviedb.model
 
 import java.util.*
 

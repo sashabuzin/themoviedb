@@ -11,11 +11,11 @@
     >
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/toolbar_movie_btn"
+        android:id="@+id/toolbar_main_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/movie_toolbar_btn"
+        android:text="@string/main_toolbar_btn"
         android:background="@color/marrs_green"
 
         />
