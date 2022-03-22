@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.buzinasgeekbrains.themoviedb.viewmodel.MainViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
@@ -30,21 +32,30 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.nowPlayingRecyclerView.apply {
+//            this.adapter = MainFragmentAdapter()
+            this.layoutManager = LinearLayoutManager(requireActivity())
+        }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.getData().observe(viewLifecycleOwner, Observer {
+//            render(it)
+        })
 
-//        render(state)
     }
 
     private fun render(state: Any) {
         when (state) {
             is AppState.Success<*> -> {
-                //TODO gone loading
+                binding.progressBarcv.visibility = View.GONE
             }
             is AppState.Error -> {
                 //TODO reload
+                binding.progressBarcv.visibility = View.VISIBLE
+
             }
             is AppState.Loading -> {
-                //TODO visible loading
+                binding.progressBarcv.visibility = View.VISIBLE
+
             }
         }
     }

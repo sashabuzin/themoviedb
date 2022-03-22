@@ -73,8 +73,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/film_description"
-                android:text="Description"
+                android:id="@+id/film_overview"
+                android:text="Overview: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"/>

@@ -53,8 +53,8 @@ class FilmDetailsFragment : Fragment() {
                 binding.ratingList.append(film.rating.toString())
                 binding.budgetList.append(film.budget.toString())
                 binding.revenueList.append(film.revenue.toString())
-                binding.releaseDateList.append(film.date.toString())
-                binding.filmDescription.text = film.description
+                binding.releaseDateList.append(film.releaseDate)
+                binding.filmOverview.text = film.overview
 
             }
             is AppState.Error -> {

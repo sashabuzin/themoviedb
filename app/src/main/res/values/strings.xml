@@ -4,4 +4,16 @@
     <string name="people_toolbar_btn">People</string>
     <string name="favorite_toolbar_btn">Favorite</string>
     <string name="main_toolbar_btn">Main</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="popular">Popular</string>
+    <string name="now_playing">Now playing</string>
+    <string name="actor_name">Actor name</string>
+    <string name="birthday">Birthday:</string>
+    <string name="gender">Gender:</string>
+    <string name="place_of_birth">Place of birth:</string>
+    <string name="popularity">Popularity:</string>
+    <string name="biography">Biography</string>
+    <string name="filmed_in">Filmed in:</string>
+    <string name="actors">Actors</string>
 </resources>

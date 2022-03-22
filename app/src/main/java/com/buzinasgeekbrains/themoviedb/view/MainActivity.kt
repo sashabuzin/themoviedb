@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        savedInstanceState ?: replaceMainContainer(FilmDetailsFragment.newInstance())
+        savedInstanceState ?: replaceMainContainer(MainFragment.newInstance())
 
 
         binding.bottomToolbar.toolbarMainBtn.setOnClickListener{
