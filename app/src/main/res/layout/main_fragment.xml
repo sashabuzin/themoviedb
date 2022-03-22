@@ -3,10 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grey"
     android:orientation="vertical"
-    android:padding="@dimen/main_fragment_padding"
     tools:context=".view.MainFragment">
+
+    <ProgressBar
+        android:id="@+id/progressBarcv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleX="0.10"
+        android:scaleY="0.10"
+        android:textColor="@android:color/holo_blue_bright"
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
@@ -29,17 +39,17 @@
                     android:id="@+id/now_playing_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Now playing"
-                    android:textSize="20sp" />
+                    android:text="@string/now_playing"
+                    android:paddingStart="@dimen/main_fragment_padding"
+                    android:paddingTop="@dimen/main_fragment_padding"
+                    android:textSize="@dimen/header_main_text_size" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/now_playing_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal" />
-
-                <include
-                    android:id="@+id/card_film_plug1"
-                    layout="@layout/film_card" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,17 +62,19 @@
                     android:id="@+id/popular_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Popular"
-                    android:textSize="20sp" />
+                    android:text="@string/popular"
+                    android:paddingStart="@dimen/main_fragment_padding"
+                    android:paddingTop="@dimen/main_fragment_padding"
+                    android:textSize="@dimen/header_main_text_size" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popular_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal" />
 
-                <include
-                    android:id="@+id/card_film_plug2"
-                    layout="@layout/film_card" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -75,17 +87,19 @@
                     android:id="@+id/top_rated_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Top Rated"
-                    android:textSize="20sp" />
+                    android:text="@string/top_rated"
+                    android:paddingStart="@dimen/main_fragment_padding"
+                    android:paddingTop="@dimen/main_fragment_padding"
+                    android:textSize="@dimen/header_main_text_size" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_rated_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal" />
 
-                <include
-                    android:id="@+id/card_film_plug3"
-                    layout="@layout/film_card" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -98,17 +112,19 @@
                     android:id="@+id/upcoming_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upcoming"
-                    android:textSize="20sp" />
+                    android:text="@string/upcoming"
+                    android:paddingStart="@dimen/main_fragment_padding"
+                    android:paddingTop="@dimen/main_fragment_padding"
+                    android:textSize="@dimen/header_main_text_size" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/upcoming_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal" />
 
-                <include
-                    android:id="@+id/card_film_plug4"
-                    layout="@layout/film_card" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -10,11 +10,19 @@ import com.buzinasgeekbrains.themoviedb.viewmodel.ActorDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.databinding.ActorDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.databinding.FilmDetailsFragmentBinding
+import com.buzinasgeekbrains.themoviedb.model.Actor
+
 
 class ActorDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ActorDetailsFragment()
+
+        const val BUNDLE_EXTRA = "actor"
+        fun newInstance(bundle: Bundle): ActorDetailsFragment {
+            val fragment = ActorDetailsFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     private var _binding: ActorDetailsFragmentBinding? = null
@@ -32,6 +40,15 @@ class ActorDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
+        val actorData = arguments?.getParcelable<Actor>(BUNDLE_EXTRA)
+        actorData?.let {
+            binding.actorNameMain.text = actorData.name
+            binding.actorBiography.text = actorData.biography
+            binding.placeOfBirthList.text = actorData.placeOfBirth
+            binding.birthdayList.text = actorData.birthday
+            binding.genderList.text = if (actorData.gender == 1) "Male" else "Female"
+            binding.popularityList.text = actorData.popularity.toString()
+        }
     }
 
     override fun onDestroy() {
