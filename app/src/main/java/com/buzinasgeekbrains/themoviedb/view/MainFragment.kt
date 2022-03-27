@@ -15,6 +15,12 @@ import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
 import com.buzinasgeekbrains.themoviedb.model.Film
 
+
+const val NOW_PLAYING: String = "NOW_PLAYING"
+const val POPULAR: String = "POPULAR"
+const val TOP_RATED: String = "TOP_RATED"
+const val UPCOMING: String = "UPCOMING"
+
 class MainFragment : Fragment() {
 
     companion object {
@@ -38,7 +44,7 @@ class MainFragment : Fragment() {
         openDetailsFilmFragment(film)
     }
 
-    private fun openDetailsFilmFragment (film: Film) {
+    private fun openDetailsFilmFragment(film: Film) {
         val manager = activity?.supportFragmentManager
         if (manager != null) {
             val bundle = Bundle()
@@ -75,21 +81,35 @@ class MainFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        viewModel.getData().observe(viewLifecycleOwner, Observer {
-            render(it)
+        viewModel.getNowPlayingData().observe(viewLifecycleOwner, Observer {
+            render(it, NOW_PLAYING)
+        })
+        viewModel.getPopularData().observe(viewLifecycleOwner, Observer {
+            render(it, POPULAR)
+        })
+        viewModel.getTopRatedData().observe(viewLifecycleOwner, Observer {
+            render(it, TOP_RATED)
+        })
+        viewModel.getUpcomingData().observe(viewLifecycleOwner, Observer {
+            render(it, UPCOMING)
         })
         viewModel.getFilmsFromLocalStorage()
 
+
     }
 
-    private fun render(state: AppState) {
+    private fun render(state: AppState, s: String) {
         when (state) {
             is AppState.Success<*> -> {
                 binding.progressBarcv.visibility = View.GONE
-                nowPlayingAdapter.setFilm(state.data as List<*>)
-                popularAdapter.setFilm(state.data as List<*>)
-                topRatedAdapter.setFilm(state.data as List<*>)
-                upcomingAdapter.setFilm(state.data as List<*>)
+
+                when (s) {
+                    NOW_PLAYING -> nowPlayingAdapter.setFilm(state.data as List<*>)
+                    POPULAR -> popularAdapter.setFilm(state.data as List<*>)
+                    TOP_RATED -> topRatedAdapter.setFilm(state.data as List<*>)
+                    UPCOMING -> upcomingAdapter.setFilm(state.data as List<*>)
+                }
+
             }
             is AppState.Error -> {
                 binding.progressBarcv.visibility = View.VISIBLE
@@ -99,7 +119,9 @@ class MainFragment : Fragment() {
                 binding.progressBarcv.visibility = View.VISIBLE
             }
         }
+
     }
+
 
     private fun removeAllListener() {
         nowPlayingAdapter.removeListener()
@@ -113,5 +135,4 @@ class MainFragment : Fragment() {
         removeAllListener()
         _binding = null
     }
-
 }
