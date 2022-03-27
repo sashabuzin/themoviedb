@@ -48,8 +48,7 @@
                     android:id="@+id/now_playing_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -71,8 +70,7 @@
                     android:id="@+id/popular_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal" />
+                    />
 
 
             </LinearLayout>

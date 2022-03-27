@@ -8,26 +8,26 @@ import com.buzinasgeekbrains.themoviedb.model.RepositoryFilm
 import com.buzinasgeekbrains.themoviedb.model.RepositoryFilmImpl
 
 class FilmDetailsViewModel : ViewModel() {
-
-    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-    private val repository: RepositoryFilm = RepositoryFilmImpl()
-
-
-    fun getData(): LiveData<AppState> = liveDataToObserve
-
-    fun getFilmFromRemoteSource() {
-
-    }
-
-    fun getFilmFromLocalStorage() {
-        liveDataToObserve.value = AppState.Loading
-
-        Thread {
-            Thread.sleep(500)
-            val film = repository.getFilmFromServer()
-            liveDataToObserve.postValue(AppState.Success(film.firstOrNull()))
-
-        }.start()
-    }
+//
+//    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+//    private val repository: RepositoryFilm = RepositoryFilmImpl()
+//
+//
+//    fun getData(): LiveData<AppState> = liveDataToObserve
+//
+//    fun getFilmFromRemoteSource() {
+//
+//    }
+//
+//    fun getFilmFromLocalStorage() {
+//        liveDataToObserve.value = AppState.Loading
+//
+//        Thread {
+//            Thread.sleep(500)
+//            val film = repository.getFilmFromServer()
+//            liveDataToObserve.postValue(AppState.Success(film.firstOrNull()))
+//
+//        }.start()
+//    }
 
 }

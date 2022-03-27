@@ -1,11 +1,12 @@
 package com.buzinasgeekbrains.themoviedb.model
 
 interface RepositoryFilm {
-    fun getFilmFromServer(): List<Film>
-    fun getFilmFromLocalStorage(): List<Film>
+    fun getFilmsFromServer(): List<Film>
+    fun getFilmsFromLocalStorage(): List<Film>
+    fun getNowPlayingFilmsFromLocalStorage(): List<Film>
+    fun getPopularFilmsFromLocalStorage(): List<Film>
+    fun getTopRatedPlayingFilmsFromLocalStorage(): List<Film>
+    fun getUpcomingFilmsFromLocalStorage(): List<Film>
+//    fun getFilmFromServer(): Film
 }
 
-interface RepositoryActor {
-    fun getActorFromServer(): List<Actor>
-    fun getActorFromLocalStorage(): List<Actor>
-}

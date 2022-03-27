@@ -3,11 +3,11 @@ package com.buzinasgeekbrains.themoviedb.model
 import java.util.*
 
 class RepositoryActorImpl: RepositoryActor {
-    override fun getActorFromServer(): List<Actor> {
+    override fun getActorsFromServer(): List<Actor> {
         TODO("Not yet implemented")
     }
 
-    override fun getActorFromLocalStorage(): List<Actor> {
+    override fun getActorsFromLocalStorage(): List<Actor> {
 
 
         return listOf(Actor(17142, "Paul Dano", "1984-06-19", 2,

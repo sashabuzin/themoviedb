@@ -9,10 +9,10 @@
     <string name="popular">Popular</string>
     <string name="now_playing">Now playing</string>
     <string name="actor_name">Actor name</string>
-    <string name="birthday">Birthday:</string>
-    <string name="gender">Gender:</string>
-    <string name="place_of_birth">Place of birth:</string>
-    <string name="popularity">Popularity:</string>
+    <string name="birthday">Birthday: </string>
+    <string name="gender">Gender: </string>
+    <string name="place_of_birth">Place of birth: </string>
+    <string name="popularity">Popularity: </string>
     <string name="biography">Biography</string>
     <string name="filmed_in">Filmed in:</string>
     <string name="actors">Actors</string>

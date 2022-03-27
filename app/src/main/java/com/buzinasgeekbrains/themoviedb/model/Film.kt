@@ -13,7 +13,7 @@ data class Film(
 
 ): Parcelable
 
-fun getDefaultFilm(): Film {
-    return Film(2, "The matrix", "1999-10-12",
-        "comedy", 2000, 3500, 4.7, "The matrix movie description")
-}
+//fun getDefaultFilm(): Film {
+//    return Film(2, "The matrix", "1999-10-12",
+//        "comedy", 2000, 3500, 4.7, "The matrix movie description")
+//}
