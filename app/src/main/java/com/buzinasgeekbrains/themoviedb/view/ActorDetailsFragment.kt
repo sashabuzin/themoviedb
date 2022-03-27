@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.databinding.ActorDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.databinding.FilmDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
-
+import com.buzinasgeekbrains.themoviedb.model.Film
+import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 
 class ActorDetailsFragment : Fragment() {
 
@@ -40,6 +42,7 @@ class ActorDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
+        binding.filmedInList.layoutManager = LinearLayoutManager(requireActivity())
         val actorData = arguments?.getParcelable<Actor>(BUNDLE_EXTRA)
         actorData?.let {
             binding.actorNameMain.text = actorData.name
@@ -50,6 +53,29 @@ class ActorDetailsFragment : Fragment() {
             binding.popularityList.text = actorData.popularity.toString()
         }
     }
+
+//    private fun render(state: AppState) {
+//        when (state) {
+//            is AppState.Success<*> -> {
+//
+//                val actor = state.data as Actor
+//                binding.progressBarcv.visibility = View.GONE
+//                binding.actorNameMain.text = actor.name
+//                binding.birthdayList.append(actor.birthday.toString())
+//                binding.genderList.append(if (actor.gender == 1) "Male" else "Female")
+//                binding.placeOfBirthList.append(actor.placeOfBirth.toString())
+//                binding.popularityList.append(actor.popularity.toString())
+//                binding.actorBiography.text = actor.biography
+//
+//            }
+//            is AppState.Error -> {
+//                viewModel.getFilmFromLocalStorage()
+//            }
+//            is AppState.Loading -> {
+//                binding.progressBarcv.visibility = View.VISIBLE
+//            }
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

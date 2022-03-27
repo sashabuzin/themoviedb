@@ -5,18 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.buzinasgeekbrains.themoviedb.model.RepositoryActor
 import com.buzinasgeekbrains.themoviedb.model.RepositoryActorImpl
-import com.buzinasgeekbrains.themoviedb.model.RepositoryFilm
-import com.buzinasgeekbrains.themoviedb.model.RepositoryFilmImpl
 
 class ActorsViewModel: ViewModel() {
 
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private val repository: RepositoryActor = RepositoryActorImpl()
 
-
     fun getData(): LiveData<AppState> = liveDataToObserve
 
-    fun getActorFromRemoteSource() {
+    fun getActorsFromRemoteSource() {
 
     }
 
@@ -25,7 +22,7 @@ class ActorsViewModel: ViewModel() {
 
         Thread {
             Thread.sleep(500)
-            val actor = repository.getActorFromLocalStorage()
+            val actor = repository.getActorsFromLocalStorage()
             liveDataToObserve.postValue(AppState.Success(actor))
 
         }.start()

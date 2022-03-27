@@ -7,5 +7,7 @@ import java.util.*
 
 @Parcelize
 data class Actor (
-    val id: Int, val name: String, val birthday: String, val gender: Int, val placeOfBirth: String, val popularity: Double, val biography: String
-): Parcelable
+    val id: Int, val name: String, val birthday: String,
+    val gender: Int, val placeOfBirth: String, val popularity: Double,
+    val biography: String
+) : Parcelable

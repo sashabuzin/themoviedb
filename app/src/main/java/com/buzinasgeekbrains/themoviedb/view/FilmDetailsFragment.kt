@@ -15,13 +15,17 @@ import com.buzinasgeekbrains.themoviedb.model.Film
 class FilmDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = FilmDetailsFragment()
+
+        const val BUNDLE_EXTRA = "film"
+        fun newInstance(bundle: Bundle): FilmDetailsFragment {
+            val fragment = FilmDetailsFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     private var _binding: FilmDetailsFragmentBinding? = null
-
     private val binding get() = _binding!!
-
     private lateinit var viewModel: FilmDetailsViewModel
 
     override fun onCreateView(
@@ -35,36 +39,42 @@ class FilmDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(FilmDetailsViewModel::class.java)
-        viewModel.getData().observe(viewLifecycleOwner, Observer {
-            render(it)
-        })
-        viewModel.getFilmFromLocalStorage()
-
-
-    }
-
-    private fun render(state: AppState) {
-        when (state) {
-            is AppState.Success<*> -> {
-
-                val film = state.data as Film
-                binding.progressBarcv.visibility = View.GONE
-                binding.filmNameMain.text = film.name
-                binding.ratingList.append(film.rating.toString())
-                binding.budgetList.append(film.budget.toString())
-                binding.revenueList.append(film.revenue.toString())
-                binding.releaseDateList.append(film.releaseDate)
-                binding.filmOverview.text = film.overview
-
-            }
-            is AppState.Error -> {
-                viewModel.getFilmFromLocalStorage()
-            }
-            is AppState.Loading -> {
-                binding.progressBarcv.visibility = View.VISIBLE
-            }
+        val filmData = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
+        filmData?.let {
+            binding.progressBarcv.visibility = View.GONE
+            binding.filmNameMain.text = filmData.name
+            binding.ratingList.append(filmData.rating.toString())
+            binding.budgetList.append(filmData.budget.toString())
+            binding.revenueList.append(filmData.revenue.toString())
+            binding.releaseDateList.append(filmData.releaseDate)
+            binding.filmOverview.text = filmData.overview
         }
+
+
     }
+
+//    private fun render(state: AppState) {
+//        when (state) {
+//            is AppState.Success<*> -> {
+//
+//                val film = state.data as Film
+//                binding.progressBarcv.visibility = View.GONE
+//                binding.filmNameMain.text = film.name
+//                binding.ratingList.append(film.rating.toString())
+//                binding.budgetList.append(film.budget.toString())
+//                binding.revenueList.append(film.revenue.toString())
+//                binding.releaseDateList.append(film.releaseDate)
+//                binding.filmOverview.text = film.overview
+//
+//            }
+//            is AppState.Error -> {
+//                viewModel.getFilmFromLocalStorage()
+//            }
+//            is AppState.Loading -> {
+//                binding.progressBarcv.visibility = View.VISIBLE
+//            }
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
