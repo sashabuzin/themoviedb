@@ -7,6 +7,5 @@ interface RepositoryFilm {
     fun getPopularFilmsFromLocalStorage(): List<Film>
     fun getTopRatedPlayingFilmsFromLocalStorage(): List<Film>
     fun getUpcomingFilmsFromLocalStorage(): List<Film>
-//    fun getFilmFromServer(): Film
 }
 

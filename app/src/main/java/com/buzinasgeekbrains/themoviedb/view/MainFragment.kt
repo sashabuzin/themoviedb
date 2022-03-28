@@ -68,6 +68,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initViewModels()
+        viewModel.getFilmsFromLocalStorage()
+    }
+
+    private fun initViewModels() {
         viewModel.getNowPlayingData().observe(viewLifecycleOwner, Observer {
             render(it, NOW_PLAYING)
         })
@@ -80,9 +85,6 @@ class MainFragment : Fragment() {
         viewModel.getUpcomingData().observe(viewLifecycleOwner, Observer {
             render(it, UPCOMING)
         })
-        viewModel.getFilmsFromLocalStorage()
-
-
     }
 
     private fun initRecyclerView() {
@@ -108,7 +110,6 @@ class MainFragment : Fragment() {
         when (state) {
             is AppState.Success<*> -> {
                 binding.progressBarcv.visibility = View.GONE
-
                 when (s) {
                     NOW_PLAYING -> nowPlayingAdapter.setFilm(state.data as List<*>)
                     POPULAR -> popularAdapter.setFilm(state.data as List<*>)

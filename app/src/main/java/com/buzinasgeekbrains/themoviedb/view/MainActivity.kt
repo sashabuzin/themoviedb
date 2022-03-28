@@ -10,23 +10,19 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         savedInstanceState ?: replaceMainContainer(MainFragment.newInstance())
-
 
         binding.bottomToolbar.toolbarMainBtn.setOnClickListener{
             replaceMainContainer(MainFragment.newInstance())
         }
-
         binding.bottomToolbar.toolbarPeopleBtn.setOnClickListener{
             replaceMainContainer(ActorsFragment.newInstance())
         }
-
     }
 
     private fun replaceMainContainer(fragment: Fragment) {

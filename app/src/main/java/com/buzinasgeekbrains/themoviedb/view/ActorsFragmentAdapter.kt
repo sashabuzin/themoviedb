@@ -41,10 +41,10 @@ class ActorsFragmentAdapter(private var onItemViewClickListener:
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(actor: Actor) {
-            itemView.findViewById<TextView>(R.id.actor_name_card_text_view).text =
-                actor.name
-            itemView.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(actor)
+            itemView.apply {
+                findViewById<TextView>(R.id.actor_name_card_text_view).text =
+                    actor.name
+                setOnClickListener { onItemViewClickListener?.onItemViewClick(actor) }
             }
         }
     }

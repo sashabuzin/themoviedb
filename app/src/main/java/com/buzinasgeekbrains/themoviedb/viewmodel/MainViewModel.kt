@@ -12,7 +12,7 @@ class MainViewModel : ViewModel() {
     private val liveDataToObserveUpcoming: MutableLiveData<AppState> = MutableLiveData()
     private val repository: RepositoryFilm = RepositoryFilmImpl()
 
-    //    private val mediatorLiveData: MediatorLiveData<AppState> = MediatorLiveData()
+//    private val mediatorLiveData: MediatorLiveData<AppState> = MediatorLiveData()
 
     fun getNowPlayingData(): LiveData<AppState> = liveDataToObserveNowPlaying
     fun getPopularData(): LiveData<AppState> = liveDataToObservePopular

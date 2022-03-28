@@ -47,6 +47,7 @@ class FilmsFragmentAdapter (private var onItemViewClickListener:
             }
         }
     }
+
     fun removeListener() {
         onItemViewClickListener = null
     }

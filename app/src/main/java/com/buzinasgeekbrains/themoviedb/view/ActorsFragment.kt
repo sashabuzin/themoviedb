@@ -50,17 +50,18 @@ class ActorsFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
             binding.actorsRecyclerView.also {
                 it.adapter = adapter
                 it.layoutManager = GridLayoutManager(requireActivity(), 2)
             }
-        viewModel.getData().observe(viewLifecycleOwner, Observer {
-            render(it)
-        })
-        viewModel.getActorFromLocalStorage()
+        viewModel.also{
+            it.getData().observe(viewLifecycleOwner, Observer {appState ->
+                render(appState)
+            })
+            it.getActorFromLocalStorage()
+        }
     }
 
     private fun render(state: AppState) {
@@ -96,5 +97,4 @@ class ActorsFragment : Fragment() {
         adapter.removeListener()
         _binding = null
     }
-
 }
