@@ -39,18 +39,15 @@ class FilmDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(FilmDetailsViewModel::class.java)
-        val filmData = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
-        filmData?.let {
+        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
             binding.progressBarcv.visibility = View.GONE
-            binding.filmNameMain.text = filmData.name
-            binding.ratingList.append(filmData.rating.toString())
-            binding.budgetList.append(filmData.budget.toString())
-            binding.revenueList.append(filmData.revenue.toString())
-            binding.releaseDateList.append(filmData.releaseDate)
-            binding.filmOverview.text = filmData.overview
+            binding.filmNameMain.text = it.name
+            binding.ratingList.append(it.rating.toString())
+            binding.budgetList.append(it.budget.toString())
+            binding.revenueList.append(it.revenue.toString())
+            binding.releaseDateList.append(it.releaseDate)
+            binding.filmOverview.text = it.overview
         }
-
-
     }
 
 //    private fun render(state: AppState) {

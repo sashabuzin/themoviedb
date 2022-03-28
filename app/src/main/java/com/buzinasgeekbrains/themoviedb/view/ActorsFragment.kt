@@ -16,7 +16,9 @@ import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorsViewModel
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.actors_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class ActorsFragment : Fragment() {
 
@@ -26,15 +28,15 @@ class ActorsFragment : Fragment() {
 
     private var _binding: ActorsFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ActorsViewModel
+    private val viewModel: ActorsViewModel by lazy {
+        ViewModelProvider(this).get(ActorsViewModel::class.java)
+    }
 
     private val adapter = ActorsFragmentAdapter { actor ->
-        val manager = activity?.supportFragmentManager
-        if (manager != null) {
-            val bundle = Bundle()
-            bundle.putParcelable(ActorDetailsFragment.BUNDLE_EXTRA, actor)
-            manager.beginTransaction()
-                .add(R.id.container_main, ActorDetailsFragment.newInstance(bundle))
+        activity?.supportFragmentManager?.apply {
+            beginTransaction()
+                .add(R.id.container_main, ActorDetailsFragment.newInstance(Bundle().apply {
+                    putParcelable(ActorDetailsFragment.BUNDLE_EXTRA, actor) }))
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
@@ -48,17 +50,18 @@ class ActorsFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            binding.actorsRecyclerView.adapter = adapter
-            binding.actorsRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
-
-        viewModel = ViewModelProvider(this).get(ActorsViewModel::class.java)
-        viewModel.getData().observe(viewLifecycleOwner, Observer {
-            render(it)
-        })
-        viewModel.getActorFromLocalStorage()
+            binding.actorsRecyclerView.also {
+                it.adapter = adapter
+                it.layoutManager = GridLayoutManager(requireActivity(), 2)
+            }
+        viewModel.also{
+            it.getData().observe(viewLifecycleOwner, Observer {appState ->
+                render(appState)
+            })
+            it.getActorFromLocalStorage()
+        }
     }
 
     private fun render(state: AppState) {
@@ -68,8 +71,11 @@ class ActorsFragment : Fragment() {
                 adapter.setActor(state.data as List<*>)
             }
             is AppState.Error -> {
-                binding.progressBarcv.visibility = View.VISIBLE
-                viewModel.getActorFromLocalStorage()
+                binding.progressBarcv.visibility = View.GONE
+                actorsFragmentRootView.showSnackBar(
+                    getString(R.string.error),
+                    getString(R.string.reload),
+                    { viewModel.getActorFromLocalStorage() })
             }
             is AppState.Loading -> {
                 binding.progressBarcv.visibility = View.VISIBLE
@@ -77,10 +83,18 @@ class ActorsFragment : Fragment() {
         }
     }
 
+    private fun View.showSnackBar(
+        text: String,
+        actionText: String,
+        action: (View) -> Unit,
+        length: Int = Snackbar.LENGTH_INDEFINITE
+    ) {
+        Snackbar.make(this, text, length).setAction(actionText, action).show()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         adapter.removeListener()
         _binding = null
     }
-
 }
