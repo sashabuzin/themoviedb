@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.buzinasgeekbrains.themoviedb.BuildConfig
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.ActorDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
@@ -22,7 +23,9 @@ class ActorDetailsFragment : Fragment() {
 
     private var _binding: ActorDetailsFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ActorDetailsViewModel
+    private val viewModel: ActorDetailsViewModel by lazy {
+        ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +37,6 @@ class ActorDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
         binding.filmedInList.layoutManager = LinearLayoutManager(requireActivity())
         arguments?.getParcelable<Actor>(BUNDLE_EXTRA)?.let {
             binding.actorNameMain.text = it.name
@@ -45,6 +47,10 @@ class ActorDetailsFragment : Fragment() {
             binding.popularityList.text = it.popularity.toString()
         }
     }
+
+//    private fun displayActorInfo(actorDTO: ActorDTO) {
+//
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -17,12 +17,6 @@ import com.buzinasgeekbrains.themoviedb.model.Film
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.main_fragment.*
 
-
-const val NOW_PLAYING: String = "NOW_PLAYING"
-const val POPULAR: String = "POPULAR"
-const val TOP_RATED: String = "TOP_RATED"
-const val UPCOMING: String = "UPCOMING"
-
 class MainFragment : Fragment() {
 
     companion object {
@@ -72,18 +66,25 @@ class MainFragment : Fragment() {
         viewModel.getFilmsFromLocalStorage()
     }
 
+    enum class MovieSections {
+        NOW_PLAYING,
+        POPULAR,
+        TOP_RATED,
+        UPCOMING,
+    }
+
     private fun initViewModels() {
         viewModel.getNowPlayingData().observe(viewLifecycleOwner, Observer {
-            render(it, NOW_PLAYING)
+            render(it, MovieSections.NOW_PLAYING.name)
         })
         viewModel.getPopularData().observe(viewLifecycleOwner, Observer {
-            render(it, POPULAR)
+            render(it, MovieSections.POPULAR.name)
         })
         viewModel.getTopRatedData().observe(viewLifecycleOwner, Observer {
-            render(it, TOP_RATED)
+            render(it, MovieSections.TOP_RATED.name)
         })
         viewModel.getUpcomingData().observe(viewLifecycleOwner, Observer {
-            render(it, UPCOMING)
+            render(it, MovieSections.UPCOMING.name)
         })
     }
 
@@ -111,10 +112,10 @@ class MainFragment : Fragment() {
             is AppState.Success<*> -> {
                 binding.progressBarcv.visibility = View.GONE
                 when (s) {
-                    NOW_PLAYING -> nowPlayingAdapter.setFilm(state.data as List<*>)
-                    POPULAR -> popularAdapter.setFilm(state.data as List<*>)
-                    TOP_RATED -> topRatedAdapter.setFilm(state.data as List<*>)
-                    UPCOMING -> upcomingAdapter.setFilm(state.data as List<*>)
+                    MovieSections.NOW_PLAYING.name-> nowPlayingAdapter.setFilm(state.data as List<*>)
+                    MovieSections.POPULAR.name -> popularAdapter.setFilm(state.data as List<*>)
+                    MovieSections.TOP_RATED.name -> topRatedAdapter.setFilm(state.data as List<*>)
+                    MovieSections.UPCOMING.name -> upcomingAdapter.setFilm(state.data as List<*>)
                 }
             }
             is AppState.Error -> {
