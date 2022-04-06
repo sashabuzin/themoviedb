@@ -2,6 +2,7 @@ package com.buzinasgeekbrains.themoviedb.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.databinding.ActorsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
+import com.buzinasgeekbrains.themoviedb.model.PopularActorsListDTO
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorsViewModel
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
@@ -32,11 +34,11 @@ class ActorsFragment : Fragment() {
         ViewModelProvider(this).get(ActorsViewModel::class.java)
     }
 
-    private val adapter = ActorsFragmentAdapter { actor ->
+    private val adapter = ActorsFragmentAdapter { actorDTO ->
         activity?.supportFragmentManager?.apply {
             beginTransaction()
                 .add(R.id.container_main, ActorDetailsFragment.newInstance(Bundle().apply {
-                    putParcelable(ActorDetailsFragment.BUNDLE_EXTRA, actor) }))
+                    putParcelable(ActorDetailsFragment.BUNDLE_EXTRA, actorDTO) }))
                 .addToBackStack("")
                 .commitAllowingStateLoss()
         }
@@ -57,25 +59,28 @@ class ActorsFragment : Fragment() {
                 it.layoutManager = GridLayoutManager(requireActivity(), 2)
             }
         viewModel.also{
+            it.getPopularActorsFromServer()
             it.getData().observe(viewLifecycleOwner, Observer {appState ->
+
                 render(appState)
             })
-            it.getActorFromLocalStorage()
+
         }
     }
 
     private fun render(state: AppState) {
         when (state) {
             is AppState.Success<*> -> {
+                adapter.setActor(state.data as PopularActorsListDTO)
+
                 binding.progressBarcv.visibility = View.GONE
-                adapter.setActor(state.data as List<*>)
             }
             is AppState.Error -> {
                 binding.progressBarcv.visibility = View.GONE
                 actorsFragmentRootView.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload),
-                    { viewModel.getActorFromLocalStorage() })
+                    { viewModel.getPopularActorsFromServer()})
             }
             is AppState.Loading -> {
                 binding.progressBarcv.visibility = View.VISIBLE

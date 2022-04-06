@@ -1,5 +1,6 @@
 package com.buzinasgeekbrains.themoviedb.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,11 +14,18 @@ class ActorsViewModel: ViewModel() {
 
     fun getData(): LiveData<AppState> = liveDataToObserve
 
-    fun getActorsFromRemoteSource() {
+    fun getPopularActorsFromServer() {
+        liveDataToObserve.value = AppState.Loading
 
+        Thread {
+            Thread.sleep(150)
+            val actors = repository.getPopularActorsFromServer()
+            liveDataToObserve.postValue(AppState.Success(actors))
+
+        }.start()
     }
 
-    fun getActorFromLocalStorage() {
+    fun getActorsFromLocalStorage() {
         liveDataToObserve.value = AppState.Loading
 
         Thread {

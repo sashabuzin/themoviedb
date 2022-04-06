@@ -13,13 +13,13 @@ import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
 object ActorLoader {
-    fun load(actor: Actor, listener: OnActorLoadListener) {
+    fun load(actorDTO: ActorDTO, listener: OnActorLoadListener) {
         Thread {
         var urlConnection: HttpsURLConnection? = null
         val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
         try {
             val uri = URL(
-                "https://api.themoviedb.org/3/person/${actor.id}?api_key=" +
+                "https://api.themoviedb.org/3/person/${actorDTO.id}?api_key=" +
                         "${BuildConfig.THEMOVIEDB_API_KEY}&language=en-US"
             )
 
@@ -31,7 +31,7 @@ object ActorLoader {
             val result = reader.lines().collect(Collectors.joining("\n"))
 
 
-            val actorDTO = Gson().fromJson<ActorDTO>(result, ActorDTO::class.java)
+            val actorDTO = Gson().fromJson(result, ActorDetailsDTO::class.java)
             handler.post { listener.onLoaded(actorDTO) }
 
         } catch (e: Exception) {
@@ -46,7 +46,7 @@ object ActorLoader {
     }
 
     interface OnActorLoadListener {
-        fun onLoaded(actorDTO: ActorDTO)
+        fun onLoaded(actorDetailsDTO: ActorDetailsDTO)
         fun onFailed(throwable: Throwable)
     }
 }

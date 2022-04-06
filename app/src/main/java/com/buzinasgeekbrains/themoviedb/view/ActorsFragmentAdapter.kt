@@ -1,21 +1,24 @@
 package com.buzinasgeekbrains.themoviedb.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.buzinasgeekbrains.themoviedb.R
-import com.buzinasgeekbrains.themoviedb.model.Actor
+import com.buzinasgeekbrains.themoviedb.model.ActorDTO
+import com.buzinasgeekbrains.themoviedb.model.PopularActorsListDTO
 
 class ActorsFragmentAdapter(private var onItemViewClickListener:
                             OnItemViewClickListener?) :
     RecyclerView.Adapter<ActorsFragmentAdapter.MainViewHolder>() {
 
-    private var actorData: List<*> = listOf<List<*>>()
+    private var actorData: List<ActorDTO>? = null
 
-    fun setActor(data: List<*>) {
-        actorData = data
+    fun setActor(data: PopularActorsListDTO) {
+        actorData = data.results
+
         notifyDataSetChanged()
     }
 
@@ -35,16 +38,16 @@ class ActorsFragmentAdapter(private var onItemViewClickListener:
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(actorData[position] as Actor)
+        holder.bind(actorData?.get(position) as ActorDTO)
     }
-    override fun getItemCount(): Int = actorData.size
+    override fun getItemCount(): Int = actorData?.size ?: 0
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(actor: Actor) {
+        fun bind(actorDTO: ActorDTO) {
             itemView.apply {
                 findViewById<TextView>(R.id.actor_name_card_text_view).text =
-                    actor.name
-                setOnClickListener { onItemViewClickListener?.onItemViewClick(actor) }
+                    actorDTO.name
+                setOnClickListener { onItemViewClickListener?.onItemViewClick(actorDTO) }
             }
         }
     }
@@ -53,6 +56,6 @@ class ActorsFragmentAdapter(private var onItemViewClickListener:
     }
 
     fun interface OnItemViewClickListener {
-        fun onItemViewClick(actor: Actor)
+        fun onItemViewClick(actorDTO: ActorDTO)
     }
 }
