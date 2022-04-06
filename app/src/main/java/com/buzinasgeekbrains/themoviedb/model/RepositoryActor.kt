@@ -1,6 +1,7 @@
 package com.buzinasgeekbrains.themoviedb.model
 
 interface RepositoryActor {
-    fun getActorsFromServer(): List<Actor>
+    fun getPopularActorsFromServer(): PopularActorsListDTO
+    fun getActorFromServer(): ActorDetailsDTO
     fun getActorsFromLocalStorage(): List<Actor>
 }

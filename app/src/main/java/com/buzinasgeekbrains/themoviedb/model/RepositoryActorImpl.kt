@@ -1,9 +1,34 @@
 package com.buzinasgeekbrains.themoviedb.model
 
+import android.os.Looper
+import android.util.Log
+import android.widget.Toast
 import java.util.*
+import java.util.logging.Handler
+import kotlin.concurrent.thread
 
 class RepositoryActorImpl: RepositoryActor {
-    override fun getActorsFromServer(): List<Actor> {
+
+    override fun getPopularActorsFromServer(): PopularActorsListDTO {
+        var popularActorsFromServer: PopularActorsListDTO? = null
+        ActorsListLoader.load(object: ActorsListLoader.OnActorLoadListener {
+            override fun onLoaded(popularActorsListDTO: PopularActorsListDTO) {
+                    popularActorsFromServer = popularActorsListDTO
+            }
+
+            override fun onFailed(e: Throwable) {
+                Log.e("DEBUGLOG", "FAIL CONNECTION", e)
+            }
+
+        })
+        Thread.sleep(1000)
+        Log.d("JSON", popularActorsFromServer?.results.toString())
+
+        return popularActorsFromServer ?: PopularActorsListDTO(1, emptyList(), 1, 1)
+    }
+
+
+    override fun getActorFromServer(): ActorDetailsDTO {
         TODO("Not yet implemented")
     }
 
