@@ -1,7 +1,9 @@
 package com.buzinasgeekbrains.themoviedb.model
 
-//data class FilmDTO()
-//
+//data class FilmDTO(
+//        val
+//)
+
 
 data class FilmedInDTO(
         val adult: Boolean?,

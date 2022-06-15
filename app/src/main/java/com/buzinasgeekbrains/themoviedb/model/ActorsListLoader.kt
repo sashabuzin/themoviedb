@@ -25,8 +25,8 @@ object ActorsListLoader {
 
                 urlConnection = uri.openConnection() as HttpsURLConnection
                 urlConnection.requestMethod = "GET"
-                urlConnection.readTimeout = 1000
-                urlConnection.connectTimeout = 1000
+                urlConnection.readTimeout = 2000
+                urlConnection.connectTimeout = 2000
                 val reader = BufferedReader(InputStreamReader(urlConnection.inputStream))
                 val result = reader.lines().collect(Collectors.joining("\n"))
 

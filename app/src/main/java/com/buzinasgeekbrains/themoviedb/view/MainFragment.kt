@@ -12,10 +12,8 @@ import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.buzinasgeekbrains.themoviedb.viewmodel.MainViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
-import com.buzinasgeekbrains.themoviedb.model.Actor
 import com.buzinasgeekbrains.themoviedb.model.Film
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
 
@@ -120,7 +118,7 @@ class MainFragment : Fragment() {
             }
             is AppState.Error -> {
                 binding.progressBarcv.visibility = View.GONE
-                mainFragmentRootView.showSnackBar(
+                binding.mainFragmentRootView.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload),
                     { viewModel.getFilmsFromLocalStorage() })

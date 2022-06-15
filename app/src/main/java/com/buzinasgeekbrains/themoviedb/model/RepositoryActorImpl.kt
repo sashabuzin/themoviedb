@@ -14,6 +14,7 @@ class RepositoryActorImpl: RepositoryActor {
         ActorsListLoader.load(object: ActorsListLoader.OnActorLoadListener {
             override fun onLoaded(popularActorsListDTO: PopularActorsListDTO) {
                     popularActorsFromServer = popularActorsListDTO
+                Log.d("JSON1", popularActorsFromServer?.results.toString())
             }
 
             override fun onFailed(e: Throwable) {

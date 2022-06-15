@@ -2,25 +2,19 @@ package com.buzinasgeekbrains.themoviedb.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.databinding.ActorsFragmentBinding
-import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
-import com.buzinasgeekbrains.themoviedb.model.Actor
 import com.buzinasgeekbrains.themoviedb.model.PopularActorsListDTO
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorsViewModel
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.actors_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.*
+
 
 class ActorsFragment : Fragment() {
 
@@ -77,7 +71,7 @@ class ActorsFragment : Fragment() {
             }
             is AppState.Error -> {
                 binding.progressBarcv.visibility = View.GONE
-                actorsFragmentRootView.showSnackBar(
+                binding.actorsFragmentRootView.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload),
                     { viewModel.getPopularActorsFromServer()})
