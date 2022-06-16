@@ -11,6 +11,7 @@ import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.buzinasgeekbrains.themoviedb.viewmodel.FilmDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.FilmDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Film
+import com.buzinasgeekbrains.themoviedb.model.FilmDTO
 
 class FilmDetailsFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class FilmDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FilmDetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,13 +40,13 @@ class FilmDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(FilmDetailsViewModel::class.java)
-        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let {
+        arguments?.getParcelable<FilmDTO>(BUNDLE_EXTRA)?.let {
             binding.progressBarcv.visibility = View.GONE
-            binding.filmNameMain.text = it.name
-            binding.ratingList.append(it.rating.toString())
+            binding.filmNameMain.text = it.title
+            binding.ratingList.append(it.vote_average.toString())
             binding.budgetList.append(it.budget.toString())
             binding.revenueList.append(it.revenue.toString())
-            binding.releaseDateList.append(it.releaseDate)
+            binding.releaseDateList.append(it.release_date)
             binding.filmOverview.text = it.overview
         }
     }
