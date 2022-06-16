@@ -1,11 +1,17 @@
 package com.buzinasgeekbrains.themoviedb.model
 
-//data class FilmDTO(
-//        val
-//)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+data class ListFilmDTO(
+        val page: Int,
+        val results: List<FilmDTO>,
+        val total_pages: Int,
+        val total_results: Int
+)
 
-data class FilmedInDTO(
+@Parcelize
+data class FilmDTO(
         val adult: Boolean?,
         val backdrop_path: String?,
         val genre_ids: List<Int>?,
@@ -20,4 +26,4 @@ data class FilmedInDTO(
         val video: Boolean?,
         val vote_average: Double?,
         val vote_count: Int?
-)
+): Parcelable

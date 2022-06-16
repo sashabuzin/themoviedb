@@ -15,7 +15,7 @@
     <string name="popularity">Popularity: </string>
     <string name="biography">Biography: </string>
     <string name="filmed_in">Filmed in:</string>
-    <string name="actors">Actors</string>
+    <string name="popular_actors">Popular Actors</string>
     <string name="error">Произошла ошибка загрузки.</string>
     <string name="reload">Повторить загрузку?</string>
 </resources>

@@ -9,6 +9,17 @@
     android:orientation="vertical"
 
     tools:context=".view.ActorsFragment">
+
+
+    <TextView
+        android:id="@+id/actors_header_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/popular_actors"
+        android:paddingStart="@dimen/main_fragment_padding"
+        android:paddingTop="@dimen/main_fragment_padding"
+        android:textSize="@dimen/actors_header_text_view_text_size" />
+
     <ProgressBar
         android:id="@+id/progressBarcv"
         android:layout_width="match_parent"
@@ -18,15 +29,6 @@
         android:scaleY="0.10"
         android:textColor="@android:color/holo_blue_bright"
         android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/actors_header_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/actors"
-        android:paddingStart="@dimen/main_fragment_padding"
-        android:paddingTop="@dimen/main_fragment_padding"
-        android:textSize="@dimen/actors_header_text_view_text_size" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actors_recycler_view"
