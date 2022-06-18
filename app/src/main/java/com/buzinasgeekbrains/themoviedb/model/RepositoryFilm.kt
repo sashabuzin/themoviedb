@@ -1,7 +1,7 @@
 package com.buzinasgeekbrains.themoviedb.model
 
 interface RepositoryFilm {
-    fun getFilmsFromServer(): List<Film>
+    fun getFilmFromServer(id: Int): FilmDTO
     fun getNowPlayingFilmsFromServer(): ListFilmDTO
     fun getPopularFilmsFromServer(): ListFilmDTO
     fun getTopRatedPlayingFilmsFromServer(): ListFilmDTO

@@ -6,7 +6,7 @@ import java.util.*
 
 class RepositoryFilmImpl: RepositoryFilm {
 
-        override fun getFilmsFromServer():  List<Film> {
+        override fun getFilmFromServer(id: Int):  FilmDTO {
   TODO()
     }
 
