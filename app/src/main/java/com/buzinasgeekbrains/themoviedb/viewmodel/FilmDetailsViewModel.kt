@@ -1,8 +1,15 @@
 package com.buzinasgeekbrains.themoviedb.viewmodel
 
+import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.buzinasgeekbrains.themoviedb.model.FilmLoaderService
+import com.buzinasgeekbrains.themoviedb.model.MOVIE_ID
 import com.buzinasgeekbrains.themoviedb.model.RepositoryFilm
 import com.buzinasgeekbrains.themoviedb.model.RepositoryFilmImpl
 
@@ -14,14 +21,16 @@ class FilmDetailsViewModel : ViewModel() {
     fun getData(): LiveData<AppState> = liveDataToObserve
 
     fun getFilmFromServer(id: Int) {
-        liveDataToObserve.value = AppState.Loading
+         TODO()
+    }
 
-        Thread {
-            Thread.sleep(500)
-            val film = repository.getFilmFromServer(id)
-            liveDataToObserve.postValue(AppState.Success(film))
+    class MyReceiver : BroadcastReceiver() {
 
-        }.start()
+        override fun onReceive(context: Context, intent: Intent) {
+            Log.d("BROADCAST", "${intent.action.toString()}")
+            val id = intent.getIntExtra(MOVIE_ID, 0)
+
+        }
     }
 
 }

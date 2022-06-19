@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.broadcastReceiver.MainBroadcastReceiver
 import com.buzinasgeekbrains.themoviedb.databinding.ActivityMainBinding
+import com.buzinasgeekbrains.themoviedb.model.FilmLoaderService
+import com.buzinasgeekbrains.themoviedb.viewmodel.FilmDetailsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -17,12 +19,13 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val receiver = MainBroadcastReceiver()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-        savedInstanceState ?: replaceMainContainer(MainFragment.newInstance())
 
+        savedInstanceState ?: replaceMainContainer(MainFragment.newInstance())
         binding.bottomToolbar.toolbarMainBtn.setOnClickListener{
             replaceMainContainer(MainFragment.newInstance())
         }
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         unregisterReceiver(receiver)
+
         super.onDestroy()
     }
 

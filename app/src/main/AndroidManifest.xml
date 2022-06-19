@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Themoviedb">
+
+
         <activity
             android:name=".view.MainActivity"
             android:exported="true">
@@ -20,12 +22,13 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".broadcastReceiver.MainBroadcastReceiver"
+        <service android:name=".model.FilmLoaderService" />
+
+        <receiver
+            android:name=".broadcastReceiver.MainBroadcastReceiver"
             android:exported="true">
-
             <intent-filter>
-                <action android:name="android.intent.action.CONNECTIVITY_ACTION"/>
-
+                <action android:name="android.intent.action.CONNECTIVITY_ACTION" />
             </intent-filter>
         </receiver>
     </application>
