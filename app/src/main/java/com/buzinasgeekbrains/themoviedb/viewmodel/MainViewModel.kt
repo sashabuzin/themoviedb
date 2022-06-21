@@ -21,26 +21,8 @@ class MainViewModel : ViewModel() {
 
 //    fun getData(): MediatorLiveData<AppState> = mediatorLiveData
 
-    fun getFilmsFromRemoteSource() {
 
-    }
-
-//    private fun addToMediatorLiveData() {
-//        mediatorLiveData.addSource(liveDataToObserveNowPlaying, Observer{
-//            liveDataToObserveNowPlaying.postValue(it)
-//        })
-//        mediatorLiveData.addSource(liveDataToObservePopular, Observer {
-//            liveDataToObservePopular.postValue(it)
-//        })
-//        mediatorLiveData.addSource(liveDataToObserveTopRated, Observer{
-//            liveDataToObserveTopRated.postValue(it)
-//        })
-//        mediatorLiveData.addSource(liveDataToObserveUpcoming, Observer {
-//            liveDataToObserveUpcoming.postValue(it)
-//        })
-//    }
-
-    fun getFilmsFromLocalStorage() {
+    fun getFilmsFromServer() {
 //        addToMediatorLiveData()
         liveDataToObserveNowPlaying.postValue(AppState.Loading)
         liveDataToObservePopular.postValue(AppState.Loading)
@@ -49,13 +31,13 @@ class MainViewModel : ViewModel() {
 
         Thread {
             Thread.sleep(150)
-            val filmNowPlaying = repository.getNowPlayingFilmsFromLocalStorage()
+            val filmNowPlaying = repository.getNowPlayingFilmsFromServer()
             liveDataToObserveNowPlaying.postValue(AppState.Success(filmNowPlaying))
-            val filmPopular = repository.getPopularFilmsFromLocalStorage()
+            val filmPopular = repository.getPopularFilmsFromServer()
             liveDataToObservePopular.postValue(AppState.Success(filmPopular))
-            val filmTopRated = repository.getTopRatedPlayingFilmsFromLocalStorage()
+            val filmTopRated = repository.getTopRatedPlayingFilmsFromServer()
             liveDataToObserveTopRated.postValue(AppState.Success(filmTopRated))
-            val filmUpcoming = repository.getUpcomingFilmsFromLocalStorage()
+            val filmUpcoming = repository.getUpcomingFilmsFromServer()
             liveDataToObserveUpcoming.postValue(AppState.Success(filmUpcoming))
 
         }.start()

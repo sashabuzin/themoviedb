@@ -7,15 +7,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.model.Film
+import com.buzinasgeekbrains.themoviedb.model.FilmDTO
+import com.buzinasgeekbrains.themoviedb.model.ListFilmDTO
 
 class FilmsFragmentAdapter (private var onItemViewClickListener:
                             OnItemViewClickListener?) :
     RecyclerView.Adapter<FilmsFragmentAdapter.MainViewHolder>() {
 
-    private var filmsData: List<*> = listOf<List<*>>()
+    private var filmsData: List<FilmDTO>? = null
 
-    fun setFilm(data: List<*>) {
-        filmsData = data
+    fun setFilm(data: ListFilmDTO) {
+        filmsData = data.results
         notifyDataSetChanged()
     }
 
@@ -35,15 +37,15 @@ class FilmsFragmentAdapter (private var onItemViewClickListener:
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(filmsData[position] as Film)
+        holder.bind(filmsData?.get(position) as FilmDTO)
     }
-    override fun getItemCount(): Int = filmsData.size
+    override fun getItemCount(): Int = filmsData?.size ?: 0
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(film: Film) {
+        fun bind(filmDTO: FilmDTO) {
             itemView.apply {
-                findViewById<TextView>(R.id.film_name_card_text_view).text =film.name
-                setOnClickListener { onItemViewClickListener?.onItemViewClick(film) }
+                findViewById<TextView>(R.id.film_name_card_text_view).text =filmDTO.title
+                setOnClickListener { onItemViewClickListener?.onItemViewClick(filmDTO) }
             }
         }
     }
@@ -53,7 +55,7 @@ class FilmsFragmentAdapter (private var onItemViewClickListener:
     }
 
     fun interface OnItemViewClickListener {
-        fun onItemViewClick(film: Film)
+        fun onItemViewClick(filmDTO: FilmDTO)
     }
 
 }

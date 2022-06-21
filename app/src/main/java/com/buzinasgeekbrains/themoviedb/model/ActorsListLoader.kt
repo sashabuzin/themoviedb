@@ -8,26 +8,27 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.Exception
 import java.net.URL
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
+import kotlin.Exception
 
 object ActorsListLoader {
     fun load(listener: OnActorLoadListener) {
         Thread {
+
             var urlConnection: HttpsURLConnection? = null
             val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
             try {
                 val uri = URL(
                             "https://api.themoviedb.org/3/person/popular?api_key=${BuildConfig.THEMOVIEDB_API_KEY}&language=en-US&page=1"
                 )
-
                 urlConnection = uri.openConnection() as HttpsURLConnection
                 urlConnection.requestMethod = "GET"
-                urlConnection.readTimeout = 1000
-                urlConnection.connectTimeout = 1000
+                urlConnection.readTimeout = 1500
+                urlConnection.connectTimeout = 1500
                 val reader = BufferedReader(InputStreamReader(urlConnection.inputStream))
+
                 val result = reader.lines().collect(Collectors.joining("\n"))
 
                 val itemType = object: TypeToken<PopularActorsListDTO>() {}.type

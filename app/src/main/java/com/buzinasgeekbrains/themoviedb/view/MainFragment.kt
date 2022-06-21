@@ -12,10 +12,10 @@ import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.buzinasgeekbrains.themoviedb.viewmodel.MainViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.MainFragmentBinding
-import com.buzinasgeekbrains.themoviedb.model.Actor
 import com.buzinasgeekbrains.themoviedb.model.Film
+import com.buzinasgeekbrains.themoviedb.model.FilmDTO
+import com.buzinasgeekbrains.themoviedb.model.ListFilmDTO
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
 
@@ -27,24 +27,24 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
 
-    private val nowPlayingAdapter = FilmsFragmentAdapter { film ->
-        openDetailsFilmFragment(film)
+    private val nowPlayingAdapter = FilmsFragmentAdapter { filmDTO ->
+        openDetailsFilmFragment(filmDTO)
     }
-    private val popularAdapter = FilmsFragmentAdapter { film ->
-        openDetailsFilmFragment(film)
+    private val popularAdapter = FilmsFragmentAdapter { filmDTO ->
+        openDetailsFilmFragment(filmDTO)
     }
-    private val topRatedAdapter = FilmsFragmentAdapter { film ->
-        openDetailsFilmFragment(film)
+    private val topRatedAdapter = FilmsFragmentAdapter { filmDTO ->
+        openDetailsFilmFragment(filmDTO)
     }
-    private val upcomingAdapter = FilmsFragmentAdapter { film ->
-        openDetailsFilmFragment(film)
+    private val upcomingAdapter = FilmsFragmentAdapter { filmDTO ->
+        openDetailsFilmFragment(filmDTO)
     }
 
-    private fun openDetailsFilmFragment(film: Film) {
+    private fun openDetailsFilmFragment(filmDTO: FilmDTO) {
         activity?.supportFragmentManager?.apply {
             beginTransaction()
                 .add(R.id.container_main, FilmDetailsFragment.newInstance(Bundle().apply {
-                    putParcelable(FilmDetailsFragment.BUNDLE_EXTRA, film)
+                    putParcelable(FilmDetailsFragment.BUNDLE_EXTRA, filmDTO)
                 }))
                 .addToBackStack("")
                 .commitAllowingStateLoss()
@@ -63,7 +63,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initViewModels()
-        viewModel.getFilmsFromLocalStorage()
+        viewModel.getFilmsFromServer()
     }
 
     enum class MovieSections {
@@ -112,18 +112,18 @@ class MainFragment : Fragment() {
             is AppState.Success<*> -> {
                 binding.progressBarcv.visibility = View.GONE
                 when (s) {
-                    MovieSections.NOW_PLAYING.name-> nowPlayingAdapter.setFilm(state.data as List<*>)
-                    MovieSections.POPULAR.name -> popularAdapter.setFilm(state.data as List<*>)
-                    MovieSections.TOP_RATED.name -> topRatedAdapter.setFilm(state.data as List<*>)
-                    MovieSections.UPCOMING.name -> upcomingAdapter.setFilm(state.data as List<*>)
+                    MovieSections.NOW_PLAYING.name-> nowPlayingAdapter.setFilm(state.data as ListFilmDTO)
+                    MovieSections.POPULAR.name -> popularAdapter.setFilm(state.data as ListFilmDTO)
+                    MovieSections.TOP_RATED.name -> topRatedAdapter.setFilm(state.data as ListFilmDTO)
+                    MovieSections.UPCOMING.name -> upcomingAdapter.setFilm(state.data as ListFilmDTO)
                 }
             }
             is AppState.Error -> {
                 binding.progressBarcv.visibility = View.GONE
-                mainFragmentRootView.showSnackBar(
+                binding.mainFragmentRootView.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload),
-                    { viewModel.getFilmsFromLocalStorage() })
+                    { viewModel.getFilmsFromServer() })
             }
             is AppState.Loading -> {
                 binding.progressBarcv.visibility = View.VISIBLE

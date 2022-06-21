@@ -18,7 +18,6 @@ class ActorsFragmentAdapter(private var onItemViewClickListener:
 
     fun setActor(data: PopularActorsListDTO) {
         actorData = data.results
-
         notifyDataSetChanged()
     }
 

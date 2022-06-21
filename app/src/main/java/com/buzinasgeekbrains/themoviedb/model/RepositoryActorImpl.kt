@@ -12,12 +12,14 @@ class RepositoryActorImpl: RepositoryActor {
     override fun getPopularActorsFromServer(): PopularActorsListDTO {
         var popularActorsFromServer: PopularActorsListDTO? = null
         ActorsListLoader.load(object: ActorsListLoader.OnActorLoadListener {
+
             override fun onLoaded(popularActorsListDTO: PopularActorsListDTO) {
                     popularActorsFromServer = popularActorsListDTO
+
             }
 
             override fun onFailed(e: Throwable) {
-                Log.e("DEBUGLOG", "FAIL CONNECTION", e)
+                Log.e("DEBUGLOG", e.toString(), e)
             }
 
         })

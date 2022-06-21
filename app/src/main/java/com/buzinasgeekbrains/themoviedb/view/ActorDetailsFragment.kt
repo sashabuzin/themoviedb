@@ -43,10 +43,7 @@ class ActorDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.filmedInList.layoutManager = LinearLayoutManager(requireActivity())
-//        viewModel.getData().observe(viewLifecycleOwner, Observer {appState ->
-//            render(appState)
-//        })
-//        viewModel.getActorFromServer()
+
         arguments?.getParcelable<ActorDTO>(BUNDLE_EXTRA)?.let {
 
 
