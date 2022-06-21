@@ -21,15 +21,20 @@ class FilmDetailsViewModel : ViewModel() {
     fun getData(): LiveData<AppState> = liveDataToObserve
 
     fun getFilmFromServer(id: Int) {
-         TODO()
+        liveDataToObserve.value = AppState.Loading
+
+        Thread {
+            Thread.sleep(500)
+            val movieInfo = repository.getFilmFromServer(id)
+            liveDataToObserve.postValue(AppState.Success(movieInfo))
+
+        }.start()
     }
 
-    class MyReceiver : BroadcastReceiver() {
+    inner class MyReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            Log.d("BROADCAST", "${intent.action.toString()}")
-            val id = intent.getIntExtra(MOVIE_ID, 0)
-
+            getFilmFromServer(intent.getIntExtra(MOVIE_ID, 0))
         }
     }
 

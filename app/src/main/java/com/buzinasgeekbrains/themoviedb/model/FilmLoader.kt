@@ -19,7 +19,7 @@ object FilmLoader {
             val handler = Handler(Looper.myLooper() ?: Looper.getMainLooper())
             try {
                 val uri = URL(
-                    "https://api.themoviedb.org/3/person/$id?api_key=" +
+                    "https://api.themoviedb.org/3/movie/$id?api_key=" +
                             "${BuildConfig.THEMOVIEDB_API_KEY}&language=en-US"
                 )
 

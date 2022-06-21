@@ -7,7 +7,25 @@ import java.util.*
 class RepositoryFilmImpl: RepositoryFilm {
 
         override fun getFilmFromServer(id: Int):  FilmDTO {
-  TODO()
+            var movieFromServer: FilmDTO? = null
+            FilmLoader.load(id, object: FilmLoader.OnFilmLoadListener {
+
+                override fun onLoaded(movie: FilmDTO) {
+                    movieFromServer = movie
+
+                }
+
+                override fun onFailed(e: Throwable) {
+                    Log.e("DEBUGLOG", e.toString(), e)
+                }
+
+            })
+            Thread.sleep(1000)
+            Log.d("JSON5", movieFromServer.toString())
+
+            return movieFromServer ?: FilmDTO(false, "", emptyList(), 0,
+                0, "", "", "", "",
+                0, "", "", "", false, 0.0, 0)
     }
 
 

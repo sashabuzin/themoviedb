@@ -22,11 +22,10 @@ import com.buzinasgeekbrains.themoviedb.model.FilmDTO
 import com.buzinasgeekbrains.themoviedb.model.FilmLoaderService
 import com.buzinasgeekbrains.themoviedb.model.MOVIE_ID
 
-const val DETAILS_INTENT_FILTER = "DETAILS INTENT FILTER"
 
 class FilmDetailsFragment : Fragment() {
 
-    private val callBackReceiver = FilmDetailsViewModel.MyReceiver()
+
 
     companion object {
         const val BUNDLE_EXTRA = "film"
@@ -41,13 +40,10 @@ class FilmDetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: FilmDetailsViewModel
     private var filmId: Int = 0
+    private var callBackReceiver = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context?.let {
-            LocalBroadcastManager.getInstance(it)
-                .registerReceiver(callBackReceiver, IntentFilter(DETAILS_INTENT_FILTER))
-        }
     }
 
     override fun onCreateView(
@@ -60,17 +56,22 @@ class FilmDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressBarcv.visibility = View.GONE
         viewModel = ViewModelProvider(this).get(FilmDetailsViewModel::class.java)
+        val callBackReceiver = viewModel.MyReceiver()
+        requireActivity().registerReceiver(callBackReceiver, IntentFilter("com.buzinasgeekbrains.themoviedb.action"))
+        Log.d("VM1", viewModel.getData().toString())
+        viewModel.getData().observe(viewLifecycleOwner, Observer {
+            Log.d("VM2", viewModel.getData().toString())
+            render(it)
+        })
+
         arguments?.getParcelable<FilmDTO>(BUNDLE_EXTRA)?.let {
             filmId = it.id ?: 0
         }
             getFilmFromService(filmId)
-            viewModel.also {
-//                it.getFilmFromServer(filmId)
-                it.getData().observe(viewLifecycleOwner, Observer { appState ->
-                    render(appState)
-                })
-            }
+
+
 
     }
 
@@ -87,8 +88,8 @@ class FilmDetailsFragment : Fragment() {
                 binding.progressBarcv.visibility = View.GONE
                 binding.filmNameMain.text = film.title
                 binding.ratingList.append(film.vote_average.toString())
-                binding.budgetList.append(film.budget.toString())
-                binding.revenueList.append(film.revenue.toString())
+                binding.budgetList.append("$" + film.budget.toString())
+                binding.revenueList.append("$" + film.revenue.toString())
                 binding.releaseDateList.append(film.release_date)
                 binding.filmOverview.text = film.overview
             }
@@ -102,9 +103,8 @@ class FilmDetailsFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        context?.let {
-            LocalBroadcastManager.getInstance(it).unregisterReceiver(callBackReceiver)
-        }
+
+        requireActivity().unregisterReceiver(callBackReceiver)
 
         super.onDestroy()
         _binding = null
