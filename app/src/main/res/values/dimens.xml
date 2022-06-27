@@ -9,9 +9,9 @@
     <dimen name="actor_card_margin_bottom">5dp</dimen>
     <dimen name="actor_card_elevation">10sp</dimen>
     <dimen name="actor_card_corner_radius">9sp</dimen>
-    <dimen name="actor_card_height">220sp</dimen>
+    <dimen name="actor_card_height">245sp</dimen>
     <dimen name="actor_card_image_width">160sp</dimen>
-    <dimen name="actor_card_image_height">170sp</dimen>
+    <dimen name="actor_card_image_height">205sp</dimen>
     <dimen name="actor_card_image_margin_top">10sp</dimen>
     <dimen name="actor_card_actor_name_text_view_height">40sp</dimen>
     <dimen name="actor_card_actor_name_text_view_margin_start">5sp</dimen>
@@ -24,9 +24,9 @@
     <dimen name="film_card_margin_bottom">5dp</dimen>
     <dimen name="film_card_elevation">10sp</dimen>
     <dimen name="film_card_corner_radius">9sp</dimen>
-    <dimen name="film_card_height">220sp</dimen>
+    <dimen name="film_card_height">282sp</dimen>
     <dimen name="film_card_image_view_width">160sp</dimen>
-    <dimen name="film_card_image_view_height">170sp</dimen>
+    <dimen name="film_card_image_view_height">242sp</dimen>
     <dimen name="film_card_image_view_margin_top">10sp</dimen>
     <dimen name="film_card_film_name_text_height">40sp</dimen>
     <dimen name="film_card_film_name_text_margin_start">5sp</dimen>

@@ -3,8 +3,11 @@ package com.buzinasgeekbrains.themoviedb.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.model.Film
 import com.buzinasgeekbrains.themoviedb.model.FilmDTO
@@ -44,6 +47,7 @@ class FilmsFragmentAdapter (private var onItemViewClickListener:
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(filmDTO: FilmDTO) {
             itemView.apply {
+                findViewById<ImageView>(R.id.film_image_card_image_view).load("https://www.themoviedb.org/t/p/w220_and_h330_face${filmDTO.poster_path}")
                 findViewById<TextView>(R.id.film_name_card_text_view).text =filmDTO.title
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(filmDTO) }
             }

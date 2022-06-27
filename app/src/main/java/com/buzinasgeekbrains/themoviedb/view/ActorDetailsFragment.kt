@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.api.load
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.ActorDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
@@ -55,6 +56,7 @@ class ActorDetailsFragment : Fragment() {
                         binding.birthdayList.append(" ${actorDetailsDTO.birthday}")
                         binding.genderList.append(" ${if (actorDetailsDTO.gender == 1) " Male" else " Female"}")
                         binding.popularityList.append(" ${actorDetailsDTO.popularity.toString()}")
+                        binding.actorImageView.load("https://www.themoviedb.org/t/p/w235_and_h235_face${actorDetailsDTO.profile_path}")
 
                 }
 
