@@ -53,6 +53,10 @@ object FilmsListLoader {
         }.start()
     }
 
+    fun loadRetrofit(listener: OnFilmLoadListener, movieSections: MainFragment.MovieSections) {
+
+    }
+
     interface OnFilmLoadListener {
         fun onLoaded(listFilmDTO: ListFilmDTO)
         fun onFailed(throwable: Throwable)

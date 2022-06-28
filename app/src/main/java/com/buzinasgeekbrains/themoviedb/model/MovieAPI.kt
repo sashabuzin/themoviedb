@@ -2,21 +2,36 @@ package com.buzinasgeekbrains.themoviedb.model
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface MovieAPI {
     @GET("3/movie")
     fun getMovie(
-        @Query("id") token: Int,
+        @Query("api_key") api_key: String,
+        @Query("id") id: Int,
+        @Query("language") language: String
     ): Call<FilmDTO>
 
-    @GET("")
+    @GET("3/movie")
     fun getListMovie(
-
+        @Query("api_key") api_key: String,
+        @Query("sections") sections: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
     ): Call<ListFilmDTO>
 
-    @GET("")
+    @GET("3/person")
     fun getActor(
-        @Query("id") token: Int,
+        @Query("api_key") api_key: String,
+        @Query("id") id: Int,
+        @Query("language") language: String
     ): Call<ActorDTO>
+
+    @GET("3/person/popular")
+    fun getPopularActorsList(
+        @Query("api_key") api_key: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Call<PopularActorsListDTO>
 }

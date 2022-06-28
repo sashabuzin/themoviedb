@@ -46,6 +46,10 @@ object ActorsListLoader {
         }.start()
     }
 
+    fun loadRetrofit(listener: OnActorLoadListener) {
+
+    }
+
     interface OnActorLoadListener {
         fun onLoaded(popularActorsListDTO: PopularActorsListDTO)
         fun onFailed(throwable: Throwable)

@@ -45,6 +45,10 @@ object ActorLoader {
     }.start()
     }
 
+    fun loadRetrofit(actorDTO: ActorDTO, listener: OnActorLoadListener) {
+
+    }
+
     interface OnActorLoadListener {
         fun onLoaded(actorDetailsDTO: ActorDetailsDTO)
         fun onFailed(throwable: Throwable)

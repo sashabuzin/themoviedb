@@ -45,6 +45,10 @@ object FilmLoader {
         }.start()
     }
 
+    fun loadRetrofit(id: Int, listener: OnFilmLoadListener) {
+
+    }
+
     interface OnFilmLoadListener {
         fun onLoaded(filmDTO: FilmDTO)
         fun onFailed(throwable: Throwable)
