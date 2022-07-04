@@ -10,14 +10,12 @@ interface MovieAPI {
     fun getMovie(
         @Query("api_key") api_key: String,
         @Query("id") id: Int,
-        @Query("language") language: String
     ): Call<FilmDTO>
 
     @GET("3/movie")
     fun getListMovie(
         @Query("api_key") api_key: String,
         @Query("sections") sections: String,
-        @Query("language") language: String,
         @Query("page") page: Int
     ): Call<ListFilmDTO>
 
@@ -25,13 +23,11 @@ interface MovieAPI {
     fun getActor(
         @Query("api_key") api_key: String,
         @Query("id") id: Int,
-        @Query("language") language: String
     ): Call<ActorDTO>
 
     @GET("3/person/popular")
     fun getPopularActorsList(
         @Query("api_key") api_key: String,
-        @Query("language") language: String,
         @Query("page") page: Int
     ): Call<PopularActorsListDTO>
 }

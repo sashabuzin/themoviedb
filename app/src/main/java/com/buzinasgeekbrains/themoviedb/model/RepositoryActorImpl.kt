@@ -29,6 +29,29 @@ class RepositoryActorImpl: RepositoryActor {
         return popularActorsFromServer ?: PopularActorsListDTO(1, emptyList(), 1, 1)
     }
 
+    override fun retrofitGetPopularActorsFromServer(): PopularActorsListDTO {
+        var popularActorsFromServer: PopularActorsListDTO? = null
+        ActorsListLoader.loadRetrofit(object: ActorsListLoader.OnActorLoadListener {
+
+            override fun onLoaded(popularActorsListDTO: PopularActorsListDTO) {
+                popularActorsFromServer = popularActorsListDTO
+            }
+
+            override fun onFailed(e: Throwable) {
+                Log.e("DEBUGLOG", e.toString(), e)
+            }
+
+        })
+        Thread.sleep(1000)
+        Log.d("JSON", popularActorsFromServer?.results.toString())
+
+        return popularActorsFromServer ?: PopularActorsListDTO(1, emptyList(), 1, 1)
+    }
+
+    override fun retrofitGetActorFromServer(): ActorDetailsDTO {
+        TODO("Not yet implemented")
+    }
+
 
     override fun getActorFromServer(): ActorDetailsDTO {
         TODO("Not yet implemented")

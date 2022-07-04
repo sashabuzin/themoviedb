@@ -37,7 +37,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/movie_image_view"
             android:layout_width="190dp"
-            android:layout_height="288dp"
+            android:layout_height="285dp"
             android:background="@color/white"/>
 
 

@@ -44,7 +44,7 @@ class ActorDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.filmedInList.layoutManager = LinearLayoutManager(requireActivity())
-
+        binding.progressBarcv.visibility = View.VISIBLE
         arguments?.getParcelable<ActorDTO>(BUNDLE_EXTRA)?.let {
 
 
@@ -56,7 +56,8 @@ class ActorDetailsFragment : Fragment() {
                         binding.birthdayList.append(" ${actorDetailsDTO.birthday}")
                         binding.genderList.append(" ${if (actorDetailsDTO.gender == 1) " Male" else " Female"}")
                         binding.popularityList.append(" ${actorDetailsDTO.popularity.toString()}")
-                        binding.actorImageView.load("https://www.themoviedb.org/t/p/w235_and_h235_face${actorDetailsDTO.profile_path}")
+                        binding.actorImageView.load("https://image.tmdb.org/t/p/w342${actorDetailsDTO.profile_path}")
+                        binding.progressBarcv.visibility = View.GONE
 
                 }
 

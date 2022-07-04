@@ -47,7 +47,7 @@ class FilmsFragmentAdapter (private var onItemViewClickListener:
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(filmDTO: FilmDTO) {
             itemView.apply {
-                findViewById<ImageView>(R.id.film_image_card_image_view).load("https://www.themoviedb.org/t/p/w220_and_h330_face${filmDTO.poster_path}")
+                findViewById<ImageView>(R.id.film_image_card_image_view).load("https://image.tmdb.org/t/p/w342${filmDTO.poster_path}")
                 findViewById<TextView>(R.id.film_name_card_text_view).text =filmDTO.title
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(filmDTO) }
             }
