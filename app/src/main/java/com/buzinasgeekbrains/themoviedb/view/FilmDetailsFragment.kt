@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import coil.api.load
 import com.buzinasgeekbrains.themoviedb.viewmodel.AppState
 import com.buzinasgeekbrains.themoviedb.viewmodel.FilmDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.FilmDetailsFragmentBinding
@@ -56,7 +57,7 @@ class FilmDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.progressBarcv.visibility = View.GONE
+        binding.progressBarcv.visibility = View.VISIBLE
         viewModel = ViewModelProvider(this).get(FilmDetailsViewModel::class.java)
         val callBackReceiver = viewModel.MyReceiver()
         requireActivity().registerReceiver(callBackReceiver, IntentFilter("com.buzinasgeekbrains.themoviedb.action"))
@@ -92,6 +93,8 @@ class FilmDetailsFragment : Fragment() {
                 binding.revenueList.append("$" + film.revenue.toString())
                 binding.releaseDateList.append(film.release_date)
                 binding.filmOverview.text = film.overview
+                binding.movieImageView.load("https://image.tmdb.org/t/p/w342${film.poster_path}")
+//                binding.movieImageView.load("https://i.pinimg.com/736x/95/30/41/953041070f000d45c05c912005f63724.jpg")
             }
             is AppState.Error -> {
                 getFilmFromService(filmId)

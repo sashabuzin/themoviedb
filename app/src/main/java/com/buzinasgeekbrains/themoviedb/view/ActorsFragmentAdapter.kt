@@ -4,8 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.buzinasgeekbrains.themoviedb.R
 import com.buzinasgeekbrains.themoviedb.model.ActorDTO
 import com.buzinasgeekbrains.themoviedb.model.PopularActorsListDTO
@@ -44,6 +46,7 @@ class ActorsFragmentAdapter(private var onItemViewClickListener:
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(actorDTO: ActorDTO) {
             itemView.apply {
+                findViewById<ImageView>(R.id.actor_image_card_image_view).load("https://image.tmdb.org/t/p/w342${actorDTO.profile_path}")
                 findViewById<TextView>(R.id.actor_name_card_text_view).text =
                     actorDTO.name
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(actorDTO) }

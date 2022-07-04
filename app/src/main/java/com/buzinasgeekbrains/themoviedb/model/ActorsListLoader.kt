@@ -2,10 +2,16 @@ package com.buzinasgeekbrains.themoviedb.model
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import com.buzinasgeekbrains.themoviedb.BuildConfig
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import okio.IOException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -14,6 +20,13 @@ import javax.net.ssl.HttpsURLConnection
 import kotlin.Exception
 
 object ActorsListLoader {
+
+    private val movieAPI = Retrofit.Builder()
+        .baseUrl("https://api.themoviedb.org")
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+        .build()
+        .create(MovieAPI::class.java)
+
     fun load(listener: OnActorLoadListener) {
         Thread {
 
@@ -44,6 +57,24 @@ object ActorsListLoader {
                 urlConnection?.disconnect()
             }
         }.start()
+    }
+
+    fun loadRetrofit(listener: OnActorLoadListener) {
+        movieAPI.getPopularActorsList(BuildConfig.THEMOVIEDB_API_KEY, 1)
+            .enqueue(object: Callback<PopularActorsListDTO> {
+
+                override fun onResponse(call: Call<PopularActorsListDTO>, response: Response<PopularActorsListDTO>) {
+                    if (response.isSuccessful) {
+                        response.body()?.let { listener.onLoaded(it) }
+                    } else {
+                        listener.onFailed(Exception(response.message()))
+                    }
+                }
+
+                override fun onFailure(call: Call<PopularActorsListDTO>, t: Throwable) {
+                    listener.onFailed(t)
+                }
+            })
     }
 
     interface OnActorLoadListener {

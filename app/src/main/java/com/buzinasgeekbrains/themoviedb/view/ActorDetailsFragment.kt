@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.api.load
 import com.buzinasgeekbrains.themoviedb.viewmodel.ActorDetailsViewModel
 import com.buzinasgeekbrains.themoviedb.databinding.ActorDetailsFragmentBinding
 import com.buzinasgeekbrains.themoviedb.model.Actor
@@ -43,7 +44,7 @@ class ActorDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.filmedInList.layoutManager = LinearLayoutManager(requireActivity())
-
+        binding.progressBarcv.visibility = View.VISIBLE
         arguments?.getParcelable<ActorDTO>(BUNDLE_EXTRA)?.let {
 
 
@@ -55,6 +56,8 @@ class ActorDetailsFragment : Fragment() {
                         binding.birthdayList.append(" ${actorDetailsDTO.birthday}")
                         binding.genderList.append(" ${if (actorDetailsDTO.gender == 1) " Male" else " Female"}")
                         binding.popularityList.append(" ${actorDetailsDTO.popularity.toString()}")
+                        binding.actorImageView.load("https://image.tmdb.org/t/p/w342${actorDetailsDTO.profile_path}")
+                        binding.progressBarcv.visibility = View.GONE
 
                 }
 

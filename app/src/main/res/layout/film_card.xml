@@ -25,7 +25,6 @@
             android:id="@+id/film_image_card_image_view"
             android:layout_width="@dimen/film_card_image_view_width"
             android:layout_height="@dimen/film_card_image_view_height"
-            android:layout_marginTop="@dimen/film_card_image_view_margin_top"
              />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -35,6 +34,7 @@
             android:layout_marginStart="@dimen/film_card_film_name_text_margin_start"
             android:layout_marginEnd="@dimen/film_card_film_name_text_margin_end"
             android:textColor="@android:color/darker_gray"
+            android:gravity="center"
             android:textSize="@dimen/film_card_film_name_text_size" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
